@@ -1,4 +1,4 @@
-<em> Prueba Ingeniero de Datos para GR5 </em>
+<h1 align="center"> Prueba Ingeniero de Datos para GR5 </h1>
 
 En los archivos cargados en este reposoitorio podrás detallar el desarrollo de los elementos solicitados para el desarrollo de la prueba de Ingeniero de Datos.
 
@@ -74,3 +74,8 @@ ALTER TABLE "ftVentas" ADD FOREIGN KEY ("fecha_id") REFERENCES "dtTiempo" ("fech
        ORDER BY unique_clients DESC
    LIMIT 5
    ```
+9. Se crean unas gráficas en Power Bi conectandose a la base de datos en la que se almaceno la información. Una aclaración, posiblemente al abrir el archivo se muestra un mensaje, por favor seleccionar la opción "No Gracias" para no afectar la visual correspondiente al mapa.
+    
+    ![alt text](error-pbi.png)
+
+
