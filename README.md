@@ -12,47 +12,60 @@ Se desarrollo un modelo estrella pensando más en el diseño de un datamart, dep
    Se aprecia su evolución durante el desarrollo del ejercicio, cuyo resultado es diseno_final_gr5.png
     ![alt text](diseno_final_gr5.png)
    
-5. Se envía el código SQL para la creación de las tablas, la base de datos elegida fue PostgreSQL.
-```sql
-CREATE TABLE "dtCliente" (
-  "num_documento_cliente" int8 not null constraint "pkdtCliente" PRIMARY KEY,
-  "tipo_documento_cliente" integer
-);
-
-CREATE TABLE "dtUbicacion" (
-  "codigo_tienda" int8  not null constraint "pkdtUbicacion" PRIMARY KEY,
-  "tipo_tienda" varchar,
-  "id_barrio" integer,
-  "nombre_barrio" varchar,
-  "latitud_tienda" float,
-  "longitud_tienda" float
-);
-
-CREATE TABLE "dtTiempo" (
-  "fecha_id" integer not null constraint "pkdtTiempo" PRIMARY KEY,
-  "fecha_compra" timestamp,
-  "anio" integer,
-  "mes" integer,
-  "dia" integer
-);
-
-CREATE TABLE "ftVentas" (
-  "num_documento_cliente" int8,
-  "codigo_tienda" int8,
-  "fecha_id" integer,
-  "total_compra" float
-);
-
-ALTER TABLE "ftVentas" ADD FOREIGN KEY ("num_documento_cliente") REFERENCES "dtCliente" ("num_documento_cliente");
-ALTER TABLE "ftVentas" ADD FOREIGN KEY ("codigo_tienda") REFERENCES "dtUbicacion" ("codigo_tienda");
-ALTER TABLE "ftVentas" ADD FOREIGN KEY ("fecha_id") REFERENCES "dtTiempo" ("fecha_id");
-```
-7. Se adjunta el pipeline o ETL construido para el desarrollo de la prueba, con las siguientes particularidades:
+3. Se envía el código SQL para la creación de las tablas, la base de datos elegida fue PostgreSQL.
+   ```sql
+   CREATE TABLE "dtCliente" (
+     "num_documento_cliente" int8 not null constraint "pkdtCliente" PRIMARY KEY,
+     "tipo_documento_cliente" integer
+   );
+   
+   CREATE TABLE "dtUbicacion" (
+     "codigo_tienda" int8  not null constraint "pkdtUbicacion" PRIMARY KEY,
+     "tipo_tienda" varchar,
+     "id_barrio" integer,
+     "nombre_barrio" varchar,
+     "latitud_tienda" float,
+     "longitud_tienda" float
+   );
+   
+   CREATE TABLE "dtTiempo" (
+     "fecha_id" integer not null constraint "pkdtTiempo" PRIMARY KEY,
+     "fecha_compra" timestamp,
+     "anio" integer,
+     "mes" integer,
+     "dia" integer
+   );
+   
+   CREATE TABLE "ftVentas" (
+     "num_documento_cliente" int8,
+     "codigo_tienda" int8,
+     "fecha_id" integer,
+     "total_compra" float
+   );
+   
+   ALTER TABLE "ftVentas" ADD FOREIGN KEY ("num_documento_cliente") REFERENCES "dtCliente" ("num_documento_cliente");
+   ALTER TABLE "ftVentas" ADD FOREIGN KEY ("codigo_tienda") REFERENCES "dtUbicacion" ("codigo_tienda");
+   ALTER TABLE "ftVentas" ADD FOREIGN KEY ("fecha_id") REFERENCES "dtTiempo" ("fecha_id");
+   ```
+4. Se adjunta el pipeline o ETL construido para el desarrollo de la prueba, con las siguientes particularidades:
   > - Algunos números de identificación de cliente venian con diferentes tipos de identificación, se opto por contar la mayor apariación del número de identificación según su tipo, tomando el dato con mayores aparaciones y almacenando en la base de datos, lo anterior ya que considere un hipotetico caso de error en digitación del tipo y aterrizando un poco el ejercicio a la practica, un número de identificación es único y no podría tener difentes tipos de identificación (CC, TI, CE, etc).
 
   > - Existen 2 códigos de tienda (745, 747) que están repetidos con diferentes localizaciones y tipo de tienda, al considerar la cantidad de datos afectados y el total de los datos, se aplica la misma lógica explicada en el punto anterior y se deja un solo registro.
 
-8. Se envía la combinación de código Python y SQL para resolver las 2 preguntas realizadas a los datos:
+5. Ejecutar scripts (.py) en este orden para obtener el resultado esperado:
+   ```python
+   # Ejecutar pipeline para obtener información y cargarla en la base de datos
+   python3 etl_gr5.py
+
+   # Una vez se cargan los datos se puede ejecutar cada una de las consultas para obtener la información esperada
+   # 1er qry
+   python3 qry_1_gr5.py
+
+   # 2do qry
+   python3 qry_2_gr5.py
+   ```
+   
+6. Se envía la combinación de código Python y SQL para resolver las 2 preguntas realizadas a los datos:
    ```sql
    # Consulta SQL para obtener las tiendas con al menos 100 clientes diferentes
    SELECT
@@ -74,7 +87,7 @@ ALTER TABLE "ftVentas" ADD FOREIGN KEY ("fecha_id") REFERENCES "dtTiempo" ("fech
        ORDER BY unique_clients DESC
    LIMIT 5
    ```
-9. Se crean unas gráficas en Power Bi conectandose a la base de datos en la que se almaceno la información. Una aclaración, posiblemente al abrir el archivo se muestra un mensaje, por favor seleccionar la opción "No Gracias" para no afectar la visual correspondiente al mapa.
+7. Se crean unas gráficas en Power Bi conectandose a la base de datos en la que se almaceno la información. Una aclaración, posiblemente al abrir el archivo se muestra un mensaje, por favor seleccionar la opción "No Gracias" para no afectar la visual correspondiente al mapa.
     
     ![alt text](error-pbi.png)
 
