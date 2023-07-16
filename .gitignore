@@ -1,0 +1,15 @@
+# Ignorar archivos de configuración local 
+config.local
+
+# Ignorar archivos generados automáticamente
+*.log
+*.cache
+
+# Enviroments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
