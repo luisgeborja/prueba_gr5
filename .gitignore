@@ -4,6 +4,7 @@ config.local
 # Ignorar archivos generados automáticamente
 *.log
 *.cache
+*.ses
 
 # Enviroments
 .env

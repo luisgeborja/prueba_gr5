@@ -7,10 +7,10 @@ Se desarrollo un modelo estrella pensando más en el diseño de un datamart, dep
 1. Se adjunta el dataset descargado para la ejecución de la prueba.
 2. En la primera parte del ejercicio se aprecía el diseño inicial de la base de datos (diseno_inicial_gr5.svg).
    
-    ![alt text](diseno_inicial_gr5.svg)
+    ![alt text](Imagenes/diseno_inicial_gr5.svg)
    
    Se aprecia su evolución durante el desarrollo del ejercicio, cuyo resultado es diseno_final_gr5.png
-    ![alt text](diseno_final_gr5.png)
+    ![alt text](Imagenes/diseno_final_gr5.png)
    
 3. Se envía el código SQL para la creación de las tablas, la base de datos elegida fue PostgreSQL.
    ```sql
@@ -58,40 +58,23 @@ Se desarrollo un modelo estrella pensando más en el diseño de un datamart, dep
    python3 etl_gr5.py
 
    # Una vez se cargan los datos se puede ejecutar cada una de las consultas para obtener la información esperada
-   # 1er qry
+   # Consulta para obtener las tiendas con al menos 100 clientes
    python3 qry_1_gr5.py
 
-   # 2do qry
+   # Consulta para obtener los 5 barrios con la mayor cantidad de clientes únicos
    python3 qry_2_gr5.py
    ```
+   El resultado de la ejecución de los scripts a continuación:
+
+   ![alt text](Imagenes/exec_qry1.png)
+
+   ![alt text](Imagenes/exec_qry2.png)
    
-6. Se envía la combinación de código Python y SQL para resolver las 2 preguntas realizadas a los datos:
-   ```sql
-   # Consulta SQL para obtener las tiendas con al menos 100 clientes diferentes
-   SELECT
-        codigo_tienda
-        ,COUNT(DISTINCT num_documento_cliente) cantidad_uniq_cliente
-   FROM "ftVentas"
-   GROUP BY codigo_tienda
-   HAVING COUNT(DISTINCT num_documento_cliente) >= 100
-   ```
-   ```sql
-   # Consulta SQL para obtener los 5 barrios con la mayor cantidad de clientes únicos
-   SELECT
-        u.nombre_barrio
-        ,COUNT(DISTINCT v.num_documento_cliente) AS unique_clients
-   FROM "ftVentas" v
-       INNER JOIN "dtUbicacion" u ON u.codigo_tienda = v.codigo_tienda
-   WHERE u.tipo_tienda = 'Tienda Regional'
-       GROUP BY nombre_barrio
-       ORDER BY unique_clients DESC
-   LIMIT 5
-   ```
-7. Se crean unas gráficas en Power Bi conectandose a la base de datos en la que se almaceno la información. Una aclaración, posiblemente al abrir el archivo se muestra un mensaje, por favor seleccionar la opción "No Gracias" para no afectar la visual correspondiente al mapa.
+6. Se crean unas gráficas en Power Bi conectandose a la base de datos en la que se almaceno la información. Una aclaración, posiblemente al abrir el archivo se muestra un mensaje, por favor seleccionar la opción "No Gracias" para no afectar la visual correspondiente al mapa.
     
-    ![alt text](error-pbi.png)
+    ![alt text](Imagenes/error-pbi.png)
 
    El archivo .pbix mostraría así unas visuales como los siguientes:
    
-    ![alt text](visual_pbi.png)
+    ![alt text](Imagenes/visual_pbi.png)
 
