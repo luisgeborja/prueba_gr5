@@ -78,4 +78,7 @@ ALTER TABLE "ftVentas" ADD FOREIGN KEY ("fecha_id") REFERENCES "dtTiempo" ("fech
     
     ![alt text](error-pbi.png)
 
+   El archivo .pbix mostraría así unas visuales como los siguientes:
+   
+    ![alt text](visual_pbi.png)
 
